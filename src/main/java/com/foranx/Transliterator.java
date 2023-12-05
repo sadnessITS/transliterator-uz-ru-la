@@ -5,24 +5,37 @@ import java.text.Normalizer;
 public class Transliterator  {
     public void transliterate(String input) {
         if (isLatinAlphabet(input)) {
-            System.out.println("Latin: \t" + input.toUpperCase());
+            System.out.println("Latin: \t" + normalize(input));
             System.out.println("Russian: \t" + fromLatinToRussian(input));
         }
         else {
             System.out.println("Latin (from Uzbek): \t" + fromUzbekToLatin(input));
             System.out.println("Latin (from Russian): \t" + fromRussianToLatin(input));
-            System.out.println("Cyrillic: \t\t" + input.toUpperCase());
+            System.out.println("Cyrillic: \t\t" + normalize(input));
         }
     }
 
-    private static boolean isLatinAlphabet(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))) {
+    private static boolean isLatinAlphabet(String intput) {
+        for (int i = 0; i < intput.length(); i++) {
+            char currentChar = intput.charAt(i);
+            if (!((currentChar >= 'A' && currentChar <= 'Z') || (currentChar >= 'a' && currentChar <= 'z'))) {
                 return false;
             }
         }
         return true;
+    }
+
+    private String normalize(String input) {
+        StringBuilder result = new StringBuilder(input.length()*2);
+        for (int i = 0; i < input.length(); i++) {
+            char currentChar = input.charAt(i);
+            switch (currentChar) {
+                case '\"': result.append("'"); break;
+                case '\\':  result.append(""); break;
+                default: result.append(currentChar); break;
+            }
+        }
+        return result.toString().toUpperCase();
     }
 
     public String fromUzbekToLatin(String input) {
