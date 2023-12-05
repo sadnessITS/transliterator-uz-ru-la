@@ -2,16 +2,16 @@ package com.foranx;
 
 import java.text.Normalizer;
 
-public class Trasliterator  {
+public class Transliterator  {
     public void transliterate(String input) {
         if (isLatinAlphabet(input)) {
-            System.out.println("Latin: \t" + input);
+            System.out.println("Latin: \t" + input.toUpperCase());
             System.out.println("Russian: \t" + fromLatinToRussian(input));
         }
         else {
             System.out.println("Latin (from Uzbek): \t" + fromUzbekToLatin(input));
             System.out.println("Latin (from Russian): \t" + fromRussianToLatin(input));
-            System.out.println("Cyrillic: \t\t" + input);
+            System.out.println("Cyrillic: \t\t" + input.toUpperCase());
         }
     }
 
@@ -100,48 +100,48 @@ public class Trasliterator  {
     }
 
     public String fromRussianToLatin(String input){
-        StringBuilder sb = new StringBuilder(input.length()*2);
-        for(char ch: input.toUpperCase().toCharArray()){
-            switch (ch) {
-                case 'А': sb.append("A"); break;
-                case 'Б': sb.append("B"); break;
-                case 'В': sb.append("V"); break;
-                case 'Г': sb.append("G"); break;
-                case 'Д': sb.append("D"); break;
-                case 'Е': sb.append("E"); break;
-                case 'Ё': sb.append("JE"); break;
-                case 'Ж': sb.append("ZH"); break;
-                case 'З': sb.append("Z"); break;
-                case 'И': sb.append("I"); break;
-                case 'Й': sb.append("Y"); break;
-                case 'К': sb.append("K"); break;
-                case 'Л': sb.append("L"); break;
-                case 'М': sb.append("M"); break;
-                case 'Н': sb.append("N"); break;
-                case 'О': sb.append("O"); break;
-                case 'П': sb.append("P"); break;
-                case 'Р': sb.append("R"); break;
-                case 'С': sb.append("S"); break;
-                case 'Т': sb.append("T"); break;
-                case 'У': sb.append("U"); break;
-                case 'Ф': sb.append("F"); break;
-                case 'Х': sb.append("KH"); break;
-                case 'Ц': sb.append("C"); break;
-                case 'Ч': sb.append("CH"); break;
-                case 'Ш': sb.append("SH"); break;
-                case 'Щ': sb.append("JSH"); break;
-                case 'Ъ': sb.append("HH"); break;
-                case 'Ы': sb.append("IH"); break;
-                case 'Ь': sb.append("JH"); break;
-                case 'Э': sb.append("EH"); break;
-                case 'Ю': sb.append("JU"); break;
-                case 'Я': sb.append("JA"); break;
-                case '\"': sb.append("'"); break;
-                case '\\': sb.append(""); break;
-                default: sb.append(String.valueOf(ch)); break;
+        StringBuilder result = new StringBuilder(input.length()*2);
+        for(char currentChar: input.toUpperCase().toCharArray()){
+            switch (currentChar) {
+                case 'А': result.append("A"); break;
+                case 'Б': result.append("B"); break;
+                case 'В': result.append("V"); break;
+                case 'Г': result.append("G"); break;
+                case 'Д': result.append("D"); break;
+                case 'Е': result.append("E"); break;
+                case 'Ё': result.append("JE"); break;
+                case 'Ж': result.append("ZH"); break;
+                case 'З': result.append("Z"); break;
+                case 'И': result.append("I"); break;
+                case 'Й': result.append("Y"); break;
+                case 'К': result.append("K"); break;
+                case 'Л': result.append("L"); break;
+                case 'М': result.append("M"); break;
+                case 'Н': result.append("N"); break;
+                case 'О': result.append("O"); break;
+                case 'П': result.append("P"); break;
+                case 'Р': result.append("R"); break;
+                case 'С': result.append("S"); break;
+                case 'Т': result.append("T"); break;
+                case 'У': result.append("U"); break;
+                case 'Ф': result.append("F"); break;
+                case 'Х': result.append("KH"); break;
+                case 'Ц': result.append("C"); break;
+                case 'Ч': result.append("CH"); break;
+                case 'Ш': result.append("SH"); break;
+                case 'Щ': result.append("JSH"); break;
+                case 'Ъ': result.append("HH"); break;
+                case 'Ы': result.append("IH"); break;
+                case 'Ь': result.append("JH"); break;
+                case 'Э': result.append("EH"); break;
+                case 'Ю': result.append("JU"); break;
+                case 'Я': result.append("JA"); break;
+                case '\"': result.append("'"); break;
+                case '\\': result.append(""); break;
+                default: result.append(String.valueOf(currentChar)); break;
             }
         }
-        return sb.toString();
+        return result.toString();
     }
     
     public String fromLatinToRussian(String input) {
@@ -177,6 +177,7 @@ public class Trasliterator  {
                 case 'Z': break;
                 case '\"': result.append("'"); break;
                 case '\\': result.append(""); break;
+                default: result.append(String.valueOf(currentChar)); break;
             }
 
             // Обработка особых случаев
